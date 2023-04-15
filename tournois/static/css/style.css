@@ -1,53 +1,48 @@
-/* Tableau */
+/* table */
 table {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  td, th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #04AA6D;
-    color: white;
-  }
-  
-  /* En-tête de la page */
-  header {
-    background-color: #04AA6D;
-    padding: 20px;
-    color: white;
-    text-align: center;
-  }
-  
-  /* Bouton */
-  button {
-    background-color: #04AA6D;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  button:hover {
-    background-color: #3e8e41;
-  }
-  
-  /* Liens */
-  a {
-    color: #04AA6D;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  text-align: left;
+  background-color: #004e89;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* body */
+body {
+  background-color: #f7e7e7;
+}
+
+/* header */
+header {
+  background-color: #004e89;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+}
+
+/* links */
+a {
+  color: #004e89;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

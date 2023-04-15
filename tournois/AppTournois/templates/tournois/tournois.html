@@ -3,9 +3,11 @@
 <html lang="fr">
 <head>
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    
     <meta charset="UTF-8">
-    <title>Titre de la page</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Tournois de foot</title>
+    
 </head>
 <body>
     
@@ -30,8 +32,12 @@
             </tbody>
         </table>
     {% endblock %}
+    {% block css %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
 </body>
 </html>
+
 
 
 
