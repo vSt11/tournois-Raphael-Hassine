@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Titre de la page</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    {% block content %}
+        <h1>Liste des tournois</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom du tournoi</th>
+                    <th>Lieu</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tournoi in tournois %}
+                    <tr>
+                        <td>{{ tournoi.nom_tournoi }}</td>
+                        <td>{{ tournoi.lieu }}</td>
+                        <td>{{ tournoi.dates }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+</body>
+</html>
+
+
+
