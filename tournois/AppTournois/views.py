@@ -15,9 +15,11 @@ def tournoi(request, tournoi_id):
     context = {'tournoi': tournoi, 'poules': poules}
     return render(request, 'tournois/tournoi.html', context)
 
-def detail_poule(request, poule_id):
-    poule = get_object_or_404(Poule, pk=poule_id)
+def poule(request, poule_id):
+    poule = Poule.objects.get(id=poule_id)
     context = {
         'poule': poule,
+        'matches': poule.get_matches(),
+        'standings': poule.get_standings(),
     }
     return render(request, 'tournois/detail_poule.html', context)

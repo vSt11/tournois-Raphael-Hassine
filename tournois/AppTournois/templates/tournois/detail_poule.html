@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ poule.tournoi.nom }}</h1>
+  <h2>Poule {{ poule.numero_poule }}</h2>
+
+  <h3>Classement</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Equipe</th>
+        <th>Points</th>
+        <th>Buts marqués</th>
+        <th>Buts encaissés</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for team in poule.get_standings %}
+        <tr>
+          <td>{{ team.team.nom_equipe }}</td>
+          <td>{{ team.points }}</td>
+          <td>{{ team.goals_for }}</td>
+          <td>{{ team.goals_against }}</td>
+        </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+  <h3>Matchs</h3>
+    <table>
+    <thead>
+        <tr>
+        <th>Equipe 1</th>
+        <th>Score</th>
+        <th>Equipe 2</th>
+        <th>Lieu</th>
+        <th>Date et heure</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for match in poule.get_matches %}
+        <tr>
+            <td>{{ match.equipe1.nom_equipe }}</td>
+            <td>{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td>
+            <td>{{ match.equipe2.nom_equipe }}</td>
+            <td>{{ match.lieu }}</td>
+            <td>{{ match.date_heure }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

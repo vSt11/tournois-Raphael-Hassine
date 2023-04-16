@@ -23,8 +23,8 @@
             </thead>
             <tbody>
                 {% for tournoi in tournois %}
-                    <tr>
-                        <td>{{ tournoi.nom_tournoi }}</td>
+                     <tr>
+                        <td><a href="{% url 'tournoi' tournoi.id %}">{{ tournoi.nom_tournoi }}</a></td>
                         <td>{{ tournoi.lieu }}</td>
                         <td>{{ tournoi.dates }}</td>
                     </tr>
