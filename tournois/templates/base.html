@@ -17,10 +17,21 @@
     <div class="container">
         <div class="row pb-3">
             <header>
-                Tournament Assignment<br>
-                <img src="{% static 'images/football.jpg' %}" width=80px alt="logo"/>
+                Tournois de foot<br>
+                <a href="{% url 'tournois' %}">
+                <img src="{% static 'images/football.jpg' %}" width=250px alt="logo"/>
+                </a>
             </header>
         </div>
+
+        <style>
+            body {
+                background-image: url("{% static 'images/champions league.jpg' %}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+        </style>
 
         {% block content %}{% endblock %}
 

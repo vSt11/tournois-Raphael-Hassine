@@ -42,11 +42,11 @@
     <tbody>
         {% for match in poule.get_matches %}
         <tr>
-            <td>{{ match.equipe1.nom_equipe }}</td>
-            <td>{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td>
-            <td>{{ match.equipe2.nom_equipe }}</td>
-            <td>{{ match.lieu }}</td>
-            <td>{{ match.date_heure }}</td>
+            <td><a href="{% url 'match' match_id=match.id %}">{{ match.equipe1.nom_equipe }}</td></a>
+            <td><a href="{% url 'match' match_id=match.id %}">{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td></a>
+            <td><a href="{% url 'match' match_id=match.id %}">{{ match.equipe2.nom_equipe }}</td></a>
+            <td><a href="{% url 'match' match_id=match.id %}">{{ match.lieu }}</td></a>
+            <td><a href="{% url 'match' match_id=match.id %}">{{ match.date_heure }}</td></a>
         </tr>
         {% endfor %}
     </tbody>

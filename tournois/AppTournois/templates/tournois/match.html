@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <meta charset="UTF-8">
+    <title>Match de foot</title>
+    
+</head>
+
+<body>
+  {% block content %}
+    <h1>{{ match.numero_poule.tournoi.nom_tournoi }}</h1>
+    <h2>Match de poule {{ match.numero_poule.numero_poule }}</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Equipe 1</th>
+          <th>Score</th>
+          <th>Equipe 2</th>
+          <th>Lieu</th>
+          <th>Date et heure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ match.equipe1.nom_equipe }}</td>
+          <td>{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td>
+          <td>{{ match.equipe2.nom_equipe }}</td>
+          <td>{{ match.lieu }}</td>
+          <td>{{ match.date_heure }}</td>
+        </tr>
+      </tbody>
+    </table>
+  {% endblock %}
+
+</body>

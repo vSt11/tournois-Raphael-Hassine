@@ -4,11 +4,11 @@ table {
   width: 100%;
 }
 
-td,
-th {
-  border: 1px solid #ddd;
-  padding: 8px;
+td, th {
+  background-color: white;
+  padding:8px;
 }
+
 
 th {
   text-align: left;
@@ -20,29 +20,52 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-/* body */
+/* Centrer le contenu de la page */
 body {
-  background-color: #f7e7e7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+  font-family: sans-serif;
 }
 
 /* header */
 header {
-  background-color: #004e89;
+  /*background-color: #004e89;*/
   color: white;
   padding: 20px;
   text-align: center;
 }
 
+/* Style pour l'en-tête */
 h1 {
-  margin: 0;
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Style pour les noms des équipes et les scores */
+h2 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* links */
 a {
-  color: #004e89;
+  color: blue;
+  background-color: white;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+}
+
+/* Style pour les informations du match */
+p {
+  color:white;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
