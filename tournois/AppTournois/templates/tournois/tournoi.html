@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <meta charset="UTF-8">
+    <title>Tournoi de foot</title>
+    
+</head>
+
+<body>
+
+    {% block content %}
+    <h1>Poules du tournoi "{{ tournoi.nom_tournoi }}"</h1>
+  
+    {% if poules %}
+      <ul>
+        {% for poule in poules %}
+          <li>
+            <a href="{% url 'detail_poule' poule.id %}">
+              Poule {{ poule.numero_poule }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Aucune poule pour ce tournoi</p>
+    {% endif %}
+  {% endblock %}
+</body>
+</html>
