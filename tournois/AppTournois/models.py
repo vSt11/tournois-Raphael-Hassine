@@ -4,9 +4,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
-class Commentaire(models.Model):
+class commentaire(models.Model):
     auteur = models.ForeignKey(User, on_delete=models.CASCADE)
-    match = models.CharField(max_length=200)
+    match = models.CharField(max_length=200, null=True, blank=True)
     date_heure = models.DateTimeField(auto_now_add=True)
     contenu = models.TextField()
 
@@ -102,7 +102,8 @@ class Match(models.Model):
     equipe2 = models.ForeignKey('Equipe', related_name='equipe2', on_delete=models.CASCADE)
     score_equipe1 = models.IntegerField(default=0,validators=[MinValueValidator(0)])
     score_equipe2 = models.IntegerField(default=0, validators=[MinValueValidator(0)])
-    numero_poule = models.ForeignKey('Poule', on_delete=models.CASCADE, null=True, blank=True)        
+    numero_poule = models.ForeignKey('Poule', on_delete=models.CASCADE, null=True, blank=True) 
+    commentaire = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"Match {self.id} : {self.equipe1} vs {self.equipe2} ({self.date_heure} - {self.lieu})"

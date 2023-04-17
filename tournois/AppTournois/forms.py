@@ -1,8 +1,8 @@
 from django import forms
-from .models import Commentaire
+from .models import commentaire
 
 class CommentaireForm(forms.ModelForm):
     class Meta:
-        model = Commentaire
+        model = commentaire
         fields = ['auteur', 'match', 'contenu']
         

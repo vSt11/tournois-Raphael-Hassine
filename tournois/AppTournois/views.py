@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
-from .models import Tournoi, Poule, Match, Commentaire
+from .models import Tournoi, Poule, Match, commentaire
 from django.contrib.auth.decorators import login_required
 from .forms import CommentaireForm
 
@@ -26,10 +26,23 @@ def poule(request, poule_id):
     }
     return render(request, 'tournois/detail_poule.html', context)
 
+
+
 def match(request, match_id):
-    match = get_object_or_404(Match, pk=match_id)
-    context = {'match': match}
-    return render(request, 'tournois/match.html', context)
+    match = get_object_or_404(Match, id=match_id)
+    commentaire = commentaire.objects.filter(match=match).order_by('-date_heure')
+    if request.method == 'POST':
+        form = CommentaireForm(request.POST)
+        if form.is_valid():
+            commentaire = form.save(commit=False)
+            commentaire.auteur = request.user
+            commentaire.match = match
+            commentaire.save()
+            return redirect('tournois/match', match_id=match.id)
+    else:
+        form = CommentaireForm()
+    context = {'match': match, 'commentairess': commentairess, 'form': form}
+    return render(request, 'match.html', context)
 
 @login_required
 def commentaire(request, match_id):
@@ -44,4 +57,4 @@ def commentaire(request, match_id):
             return redirect('visualiser_match', match_id=match.id)
     else:
         form = CommentaireForm()
-    return render(request, 'tournois/commentaire.html', {'form': form, 'match': match})
+    return render(request, 'tournois/commenter.html', {'form': form, 'match': match})
