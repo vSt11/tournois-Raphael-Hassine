@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Détail poule</title>
+    
+</head>
+
+<body>
 {% block content %}
   <h1>{{ poule.tournoi.nom }}</h1>
   <h2>Poule {{ poule.numero_poule }}</h2>
@@ -52,3 +63,4 @@
     </tbody>
     </table>
 {% endblock %}
+</body>

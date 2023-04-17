@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Equipe(models.Model):
     nom_equipe = models.CharField(max_length=255)
@@ -72,6 +73,10 @@ class Tournoi(models.Model):
     nb_equipes_poule = models.IntegerField()
     lieu = models.CharField(max_length=255, null=True, blank=True)
     dates = models.DateTimeField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.nom_tournoi
+
 
 class Match(models.Model):
     date_heure = models.DateTimeField()
@@ -80,8 +85,8 @@ class Match(models.Model):
     #equipe2 = models.ForeignKey('Equipe', on_delete=models.CASCADE, related_name='matchs_joues2')
     equipe1 = models.ForeignKey('Equipe', related_name='equipe1', on_delete=models.CASCADE)
     equipe2 = models.ForeignKey('Equipe', related_name='equipe2', on_delete=models.CASCADE)
-    score_equipe1 = models.IntegerField(default=0)
-    score_equipe2 = models.IntegerField(default=0)
+    score_equipe1 = models.IntegerField(default=0,validators=[MinValueValidator(0)])
+    score_equipe2 = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     numero_poule = models.ForeignKey('Poule', on_delete=models.CASCADE, null=True, blank=True)        
 
     def __str__(self):
