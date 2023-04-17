@@ -45,15 +45,14 @@
   {% endfor %}
 
   {% if user.is_authenticated %}
-  <form method="post" action="{% url 'commentaire' match_id=match.id %}">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Envoyer</button>
-  </form>
+    <h2>Ajouter un commentaire :</h2>
+    <form method="post" action="{% url 'commentaire' match_id=match.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Envoyer</button>
+    </form>
+{% else %}
+    <p>Veuillez vous connecter pour pouvoir ajouter un commentaire.</p>
 {% endif %}
-
-{% endblock content %}
-</body>
-
-  {% endblock content %}
+{% endblock %}
 </body>

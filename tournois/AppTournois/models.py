@@ -9,6 +9,7 @@ class Commentaire(models.Model):
     match = models.CharField(max_length=200)
     date_heure = models.DateTimeField(auto_now_add=True)
     contenu = models.TextField()
+    match = models.ForeignKey('Match', on_delete=models.CASCADE, related_name='commentaire')
 
     def __str__(self):
         return self.contenu[:50]
