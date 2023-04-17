@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -16,15 +17,23 @@
     <h1>Poules du tournoi "{{ tournoi.nom_tournoi }}"</h1>
   
     {% if poules %}
-      <ul>
-        {% for poule in poules %}
-          <li>
-            <a href="{% url 'detail_poule' poule.id %}">
-              Poule {{ poule.numero_poule }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Numéro de poule</th>
+            <th>Nombre d'équipes</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for poule in poules %}
+            <tr>
+              <td><a href="{% url 'detail_poule' poule.id %}">{{ poule.numero_poule }}</td>
+              <td>{{ poule.get_team_count}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     {% else %}
       <p>Aucune poule pour ce tournoi</p>
     {% endif %}

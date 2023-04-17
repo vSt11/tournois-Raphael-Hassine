@@ -1,7 +1,18 @@
 from django.db import models
 from django.db.models import Q
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.contrib.auth.models import User
 
+class Commentaire(models.Model):
+    auteur = models.ForeignKey(User, on_delete=models.CASCADE)
+    match = models.CharField(max_length=200)
+    date_heure = models.DateTimeField(auto_now_add=True)
+    contenu = models.TextField()
+
+    def __str__(self):
+        return self.contenu[:50]
+    
 class Equipe(models.Model):
     nom_equipe = models.CharField(max_length=255)
     nom_entraineur = models.CharField(max_length=255)
@@ -31,6 +42,10 @@ class Poule(models.Model):
     def get_teams(self):
         # Retourne toutes les équipes de la poule
         return self.equipes.all()
+    
+    def get_team_count(self):
+        # Retourne le nombre d'équipes associées à la poule
+        return self.equipes.count()
 
     def get_standings(self):
         # Calcule le classement de la poule
