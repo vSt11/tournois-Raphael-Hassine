@@ -76,3 +76,56 @@ p {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+label[for='id_username'] {
+  color : white;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+input#id_username {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+label[for='id_password'] {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+input#id_password {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}

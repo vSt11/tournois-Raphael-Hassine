@@ -1,6 +1,23 @@
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="login">
-    <input type="hidden" name="next" value="{{ next }}">
+{% extends 'base.html' %}
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <meta charset="UTF-8">
+    <title>Authentification</title>
+
+</head>
+
+<body>
+    {% block content %}
+    <form method="post" action="{% url 'login' %}" class="login-form">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="login">
+        <input type="hidden" name="next" value="{{ next }}">
     </form>
+    {% endblock content %}
+
+</body>
+
