@@ -1,9 +1,9 @@
 <body>
     {% block content %}
-    <form method="post" url={% url='AppTournois', name='tournois' %>
+    <form method="post" action="{% url 'commentaire' match_id=match.id %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Ajouter</button>
+        <button type="submit">Envoyer</button>
     </form>
     {% endblock %}
 </body>

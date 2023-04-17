@@ -44,4 +44,4 @@ def commentaire(request, match_id):
             return redirect('visualiser_match', match_id=match.id)
     else:
         form = CommentaireForm()
-    return render(request, 'tournois/commentaire.html', {'form': form, 'match': match})
+    return render(request, 'tournois/commenter.html', {'form': form, 'match': match})

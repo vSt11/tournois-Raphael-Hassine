@@ -4,5 +4,5 @@ from .models import Commentaire
 class CommentaireForm(forms.ModelForm):
     class Meta:
         model = Commentaire
-        fields = ['auteur', 'match', 'contenu']
+        fields = ['auteur', 'contenu']
         

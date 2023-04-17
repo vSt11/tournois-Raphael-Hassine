@@ -4,7 +4,7 @@ from .views import tournois
 
 urlpatterns = [
     path('', tournois, name='tournois'),
-    path('match/nouveau_commentaire', views.commentaire, name='commentaire'),
+    path('match/<int:match_id>/nouveau_commentaire', views.commentaire, name='commentaire'),
     path('tournoi/<int:tournoi_id>/', views.tournoi, name='tournoi'),
     path('tournois/', tournois, name='tournois'),
     path('poule/<int:poule_id>/', views.poule, name='detail_poule'),    

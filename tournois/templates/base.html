@@ -5,6 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +16,25 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'tournois' %}">Tournois</a></li>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Déconnexion</a>
+                {% else %}
+                <a href="{% url 'login' %}">Connexion</a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         <div class="row pb-3">
             <header>
                 Tournois de foot<br>
                 <a href="{% url 'tournois' %}">
-                <img src="{% static 'images/football.jpg' %}" width=250px alt="logo"/>
+                    <img src="{% static 'images/football.jpg' %}" width=250px alt="logo" />
                 </a>
             </header>
         </div>
@@ -42,6 +56,7 @@
             </footer>
         </div>
     </div>
-    
+
 </body>
+
 </html>
