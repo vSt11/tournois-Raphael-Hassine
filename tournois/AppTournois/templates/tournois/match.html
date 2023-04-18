@@ -36,23 +36,7 @@
     </tbody>
   </table>
   
-  {% for commentaire in match.commentaire.all %}
-  <h3>{{ commentaire.auteur }}</h3>
-  <p>{{ commentaire.contenu }}</p>
-  {% empty %}
-  <h6>Aucun commentaire pour le moment.<h6>
-  {% endfor %}
 
-  {% if user.is_authenticated %}
-        <h2>Ajouter un commentaire :</h2>
-        <form method="post" action="{% url 'commentaire' match_id=match.id %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Envoyer</button>
-        </form>
-    {% else %}
-        <p>Veuillez vous connecter pour pouvoir ajouter un commentaire.</p>
-    {% endif %}
 
 {% endblock %}
       </body>

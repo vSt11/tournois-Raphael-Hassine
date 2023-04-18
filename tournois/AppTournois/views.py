@@ -29,33 +29,5 @@ def poule(request, poule_id):
 
 def match(request, match_id):
     match = get_object_or_404(Match, id=match_id)
-    commentaires = commentaire.objects.filter(match=match).order_by('-date_heure')
-    if request.method == 'POST':
-        form = CommentaireForm(request.POST)
-        if form.is_valid():
-            commentaire = form.save(commit=False)
-            commentaire.auteur = request.user
-            commentaire.match = match
-            commentaire.save()
-            return redirect('tournois/match', match_id=match.id)
-    else:
-        form = CommentaireForm()
-    context = {'match': match, 'commentaires': commentaires, 'form': form}
-    return render(request, 'match.html', context)
-
-@login_required
-def match(request, match_id):
-    match = get_object_or_404(Match, id=match_id)
-    commentaires = commentaire.objects.filter(match=match).order_by('-date_heure')
-    if request.method == 'POST':
-        form = CommentaireForm(request.POST)
-        if form.is_valid():
-            commentaire = form.save(commit=False)
-            commentaire.auteur = request.user
-            commentaire.match = match
-            commentaire.save()
-            return redirect('tournois/match', match_id=match.id)
-    else:
-        form = CommentaireForm()
-    context = {'match': match, 'commentaires': commentaires, 'form': form}
-    return render(request, 'match.html', context)
+    context = {'match': match}
+    return render(request, 'tournois/match.html', context)
