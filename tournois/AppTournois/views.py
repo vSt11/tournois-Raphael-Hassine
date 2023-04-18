@@ -1,9 +1,21 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Tournoi, Poule, commentaire, Match
 from django.contrib.auth.decorators import login_required
 from .forms import CommentaireForm
+from django.template.loader import render_to_string
 
+@login_required
+def commentaire(request):
+    if request.method == 'POST':
+        match_id = request.POST.get('match_id')
+        contenu = request.POST.get('contenu')
+        match = get_object_or_404(Match, id=match_id)
+        commentaire = commentaire(auteur=request.user, match=match, contenu=contenu)
+        commentaire.save()
+        # Générer le HTML pour le nouveau commentaire et le renvoyer au client
+        comment_html = render_to_string('commentaire.html', {'commentaire': commentaire})
+        return JsonResponse({'html': comment_html})
 
 @login_required
 def commenter(request, match_id):

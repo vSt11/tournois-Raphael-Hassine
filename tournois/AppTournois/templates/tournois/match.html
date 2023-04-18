@@ -36,21 +36,43 @@
     </tbody>
   </table>
   
-  {% if match.commentaires.all %}
-  <h3>Commentaires :</h3>
-  <ul>
-    {% for commentaire in match.commentaires.all %}
-    <li>{{ commentaire.auteur }} : {{ commentaire.contenu }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  <h3>Ajouter un commentaire :</h3>
-  <form method="post" action="{% url 'commentaire' match.id %}">
+  <form id="comment-form" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Envoyer</button>
+    <input type="hidden" name="match_id" value="{{ match.id }}">
+    <textarea name="contenu" placeholder="Saisissez votre commentaire"></textarea>
+    <button type="submit">Commenter</button>
   </form>
+
+
+  <script>
+    // Fonction pour envoyer le formulaire via Ajax
+    function postComment() {
+      var formData = new FormData($('#comment-form')[0]);
+      $.ajax({
+        type: 'POST',
+        url: '{% url "commenter" match_id=match.id %}',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          // Si l'envoi réussit, afficher le commentaire immédiatement
+          $('#comment-list').prepend(data);
+          $('#comment-form')[0].reset();
+        },
+        error: function(xhr, textStatus, error) {
+          console.log(xhr.responseText);
+        }
+      });
+    }
+  
+    // Gérer l'envoi du formulaire lors de la soumission
+    $('#comment-form').submit(function(event) {
+      event.preventDefault();
+      postComment();
+    });
+  </script>
+  
+  
   
 {% endblock %}
       </body>
