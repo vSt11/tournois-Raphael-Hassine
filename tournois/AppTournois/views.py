@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
-from .models import Tournoi, Poule, Match, commentaire
+from .models import Tournoi, Poule, commentaire, Match
 from django.contrib.auth.decorators import login_required
 from .forms import CommentaireForm
 
@@ -27,10 +27,9 @@ def poule(request, poule_id):
     return render(request, 'tournois/detail_poule.html', context)
 
 
-
 def match(request, match_id):
     match = get_object_or_404(Match, id=match_id)
-    commentaire = commentaire.objects.filter(match=match).order_by('-date_heure')
+    commentaires = commentaire.objects.filter(match=match).order_by('-date_heure')
     if request.method == 'POST':
         form = CommentaireForm(request.POST)
         if form.is_valid():
@@ -41,12 +40,13 @@ def match(request, match_id):
             return redirect('tournois/match', match_id=match.id)
     else:
         form = CommentaireForm()
-    context = {'match': match, 'commentairess': commentairess, 'form': form}
+    context = {'match': match, 'commentaires': commentaires, 'form': form}
     return render(request, 'match.html', context)
 
 @login_required
-def commentaire(request, match_id):
-    match = Match.objects.get(id=match_id)
+def match(request, match_id):
+    match = get_object_or_404(Match, id=match_id)
+    commentaires = commentaire.objects.filter(match=match).order_by('-date_heure')
     if request.method == 'POST':
         form = CommentaireForm(request.POST)
         if form.is_valid():
@@ -54,7 +54,8 @@ def commentaire(request, match_id):
             commentaire.auteur = request.user
             commentaire.match = match
             commentaire.save()
-            return redirect('visualiser_match', match_id=match.id)
+            return redirect('tournois/match', match_id=match.id)
     else:
         form = CommentaireForm()
-    return render(request, 'tournois/commenter.html', {'form': form, 'match': match})
+    context = {'match': match, 'commentaires': commentaires, 'form': form}
+    return render(request, 'match.html', context)
