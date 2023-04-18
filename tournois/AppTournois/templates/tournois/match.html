@@ -36,7 +36,21 @@
     </tbody>
   </table>
   
+  {% if match.commentaires.all %}
+  <h3>Commentaires :</h3>
+  <ul>
+    {% for commentaire in match.commentaires.all %}
+    <li>{{ commentaire.auteur }} : {{ commentaire.contenu }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 
-
+  <h3>Ajouter un commentaire :</h3>
+  <form method="post" action="{% url 'commentaire' match.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Envoyer</button>
+  </form>
+  
 {% endblock %}
       </body>
