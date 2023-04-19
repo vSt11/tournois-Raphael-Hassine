@@ -42,16 +42,33 @@
     </thead>
     <tbody>
       {% for commentaire in match.commentaire.all %}
-      <tr>
-        <td>{{ commentaire.auteur.username }}</td>
-        <td>{{ commentaire.date_heure }}</td>
-        <td>{{ commentaire.contenu }}</td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="3">Pas de commentaires pour ce match.</td>
-      </tr>
-      {% endfor %}
+  <tr>
+    <td>{{ commentaire.auteur.username }}</td>
+    <td>{{ commentaire.date_heure }}</td>
+    <td>{{ commentaire.contenu }}</td>
+    <td>
+      {% if commentaire.auteur == request.user %}
+        
+
+          <form method="POST" action="{% url 'modifier_commentaire' commentaire.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Modifier</button>
+          </form>
+          
+          <p>Contenu actuel : {{ commentaire.contenu }}</p>
+          
+        </form>
+      {% else %}
+        <!-- {{ commentaire.contenu }} -->
+      {% endif %}
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="3">Pas de commentaires pour ce match.</td>
+  </tr>
+{% endfor %}
     </tbody>
   </table>
   

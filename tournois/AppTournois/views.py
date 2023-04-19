@@ -1,11 +1,32 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from .models import Tournoi, Poule, commentaire, Match
+from .models import Tournoi, Poule, Commentaire, Match
 from django.contrib.auth.decorators import login_required
 from .forms import CommentaireForm
 from django.template.loader import render_to_string
 
+@login_required
+def modifier_commentaire(request, Commentaire_id):
+    commentaire = get_object_or_404(Commentaire, id=Commentaire_id)
+
+    if request.method == 'POST':
+        form = CommentaireForm(request.POST)
+
+        if form.is_valid():
+            commentaire.contenu = form.cleaned_data['contenu']
+            commentaire.save()
+            return HttpResponseRedirect(reverse('afficher_match', args=(commentaire.match.id,)))
+    else:
+        form = CommentaireForm(initial={'contenu': commentaire.contenu, 'match_id': commentaire.match.id})
+
+    context = {
+        'form': form,
+        'commentaire': commentaire,
+    }
+
+    return render(request, 'tournois/modifier_commentaire.html', context)
+                  
 @login_required
 def commenter(request, match_id):
     print("test1")

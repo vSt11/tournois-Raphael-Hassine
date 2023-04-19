@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
-class commentaire(models.Model):
+class Commentaire(models.Model):
     auteur = models.ForeignKey(User, on_delete=models.CASCADE)
     match = models.ForeignKey('Match', on_delete=models.CASCADE, related_name='commentaire', null=True, blank=True)    
     date_heure = models.DateTimeField(auto_now_add=True)
