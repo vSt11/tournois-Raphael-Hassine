@@ -1,18 +1,7 @@
 {% extends "base.html" %}
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
-  <meta charset="UTF-8">
-  <title>Match de foot</title>
-
-</head>
-
-<body>
   {% block content %}
+
+  <!-- Afficher les matches  -->
   <h1>{{ match.numero_poule.tournoi.nom_tournoi }}</h1>
   <h2>Match de poule {{ match.numero_poule.numero_poule }}</h2>
   <table>
@@ -35,44 +24,84 @@
       </tr>
     </tbody>
   </table>
-  
-  <form id="comment-form" method="POST">
-    {% csrf_token %}
-    <input type="hidden" name="match_id" value="{{ match.id }}">
+
+  <form id="CommentaireForm" method="POST" action="{% url 'commenter' match_id=match.id %}">    {% csrf_token %}
+    <input type="hidden" name="match_id" value="{{ form.initial.match_id }}">
     <textarea name="contenu" placeholder="Saisissez votre commentaire"></textarea>
     <button type="submit">Commenter</button>
-  </form>
+</form>
 
 
-  <script>
-    // Fonction pour envoyer le formulaire via Ajax
-    function postComment() {
-      var formData = new FormData($('#comment-form')[0]);
-      $.ajax({
-        type: 'POST',
-        url: '{% url "commenter" match_id=match.id %}',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(data) {
-          // Si l'envoi réussit, afficher le commentaire immédiatement
-          $('#comment-list').prepend(data);
-          $('#comment-form')[0].reset();
-        },
-        error: function(xhr, textStatus, error) {
-          console.log(xhr.responseText);
-        }
-      });
-    }
+  <table>
+    <thead>
+      <tr>
+        <th>Auteur</th>
+        <th>Date</th>
+        <th>Contenu</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for commentaire in match.commentaire.all %}
+      <tr>
+        <td>{{ commentaire.auteur.username }}</td>
+        <td>{{ commentaire.date_heure }}</td>
+        <td>{{ commentaire.contenu }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3">Pas de commentaires pour ce match.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   
-    // Gérer l'envoi du formulaire lors de la soumission
-    $('#comment-form').submit(function(event) {
-      event.preventDefault();
-      postComment();
+ <!-- Afficher commentaires
+<div id="comment-list">
+  {% if commentaires %}
+  <p>Valid</p>
+    {% for commentaire in commentaires %}
+      <div class="comment">
+        <p class="author">{{ commentaire.auteur.username }}</p>
+        <p class="date">{{ commentaire.date_heure }}</p>
+        <p class="content">{{ commentaire.contenu }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Aucun commentaire pour le moment.</p>
+  {% endif %}
+</div> -->
+
+
+  <!-- <script>
+    // Obtenir le formulaire et le bouton "Soumettre"
+  var commentForm = document.getElementById('CommentaireForm');
+  var submitButton = commentForm.querySelector('[type="submit"]');
+  
+  // Ajouter un gestionnaire d'événements sur le bouton "Soumettre"
+  submitButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    // Obtenir les données du formulaire
+    var formData = new FormData(commentForm);
+    
+    // Envoyer une requête AJAX pour ajouter le commentaire
+    fetch(commentForm.action, {
+      method: 'POST',
+      body: formData
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      // Actualiser la section de commentaires avec le nouveau commentaire
+      var commentSection = document.getElementById('comment-list');
+      commentSection.innerHTML += data.html;
+      
+      // Effacer le contenu du formulaire
+      commentForm.reset();
     });
-  </script>
-  
-  
-  
-{% endblock %}
-      </body>
+  });
+  </script> -->
+  {% endblock %}
+
+</body>

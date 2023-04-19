@@ -6,10 +6,13 @@ from django.contrib.auth.models import User
 
 class commentaire(models.Model):
     auteur = models.ForeignKey(User, on_delete=models.CASCADE)
-    match = models.ForeignKey('Match', on_delete=models.CASCADE, related_name='commentaires', null=True, blank=True )
+    match = models.ForeignKey('Match', on_delete=models.CASCADE, related_name='commentaire', null=True, blank=True)    
     date_heure = models.DateTimeField(auto_now_add=True)
     contenu = models.TextField()
     
+    def __str__(self):
+        return self.contenu
+        
 class Equipe(models.Model):
     nom_equipe = models.CharField(max_length=255)
     nom_entraineur = models.CharField(max_length=255)
