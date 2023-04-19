@@ -16,7 +16,7 @@ def modifier_commentaire(request, Commentaire_id):
         if form.is_valid():
             commentaire.contenu = form.cleaned_data['contenu']
             commentaire.save()
-            return HttpResponseRedirect(reverse('afficher_match', args=(commentaire.match.id,)))
+            return HttpResponseRedirect(reverse('commenter', args=(commentaire.match.id,)))
     else:
         form = CommentaireForm(initial={'contenu': commentaire.contenu, 'match_id': commentaire.match.id})
 
