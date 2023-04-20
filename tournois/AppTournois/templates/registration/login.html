@@ -1,23 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- La page hérite de base.html -->
 
 <head>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% load static %} <!-- Chargement des fichiers statics (CSS, JS, etc.) -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> <!-- Chargement du fichier de style -->
 
-    <meta charset="UTF-8">
-    <title>Authentification</title>
-
+    <meta charset="UTF-8"> <!-- Encodage de la page -->
+    <title>Authentification</title> <!-- Titre de la page -->
 </head>
 
 <body>
-    {% block content %}
+    {% block content %} <!-- Création d'un bloc de contenu -->
     <form method="post" action="{% url 'login' %}" class="login-form">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="login">
+        <!-- Formulaire de connexion avec la méthode POST et l'action vers la vue 'login' -->
+        {% csrf_token %} <!-- Token CSRF pour empêcher les attaques CSRF -->
+        {{ form }} <!-- Affichage du formulaire de connexion -->
+        <input type="submit" value="login"> <!-- Bouton de soumission du formulaire -->
         <input type="hidden" name="next" value="{{ next }}">
+        <!-- Champ caché contenant l'URL de redirection après la connexion -->
     </form>
-    {% endblock content %}
-
+    {% endblock content %} <!-- Fin du bloc de contenu -->
 </body>
-

@@ -1,10 +1,23 @@
+<!-- Etendre le template de base -->
 {% extends 'base.html' %}
 
+<!-- Début du contenu de la page -->
 {% block content %}
+
+<!-- Titre de la page -->
 <h2>Modifier le commentaire</h2>
+
+<!-- Formulaire pour modifier un commentaire -->
 <form method="post">
+    <!-- Token CSRF pour la sécurité -->
     {% csrf_token %}
+
+    <!-- Afficher les champs du formulaire -->
     {{ form.as_p }}
+
+    <!-- Bouton pour soumettre le formulaire -->
     <button type="submit">Modifier</button>
 </form>
+
+<!-- Fin du contenu de la page -->
 {% endblock %}

@@ -1,19 +1,21 @@
-{% extends "base.html" %}
+{% extends "base.html" %} <!-- On étend le template "base.html" -->
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <meta charset="UTF-8">
-    <title>Détail poule</title>
-    
+  {% load static %} <!-- On charge les fichiers statiques pour qu'ils soient disponibles dans notre template -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <!-- On importe la feuille de style "style.css" -->
+  <meta charset="UTF-8">
+  <title>Détail poule</title>
+
 </head>
 
 <body>
-{% block content %}
-  <h1>{{ poule.tournoi.nom }}</h1>
-  <h2>Poule {{ poule.numero_poule }}</h2>
+  {% block content %} <!-- On crée un bloc nommé "content" qui pourra être étendu par les templates enfants -->
+  <h1>{{ poule.tournoi.nom }}</h1> <!-- On affiche le nom du tournoi -->
+  <h2>Poule {{ poule.numero_poule }}</h2> <!-- On affiche le numéro de la poule -->
 
   <h3>Classement</h3>
   <table>
@@ -27,40 +29,44 @@
     </thead>
     <tbody>
 
-      {% for team in poule.get_standings %}
-        <tr>
-          <td>{{ team.team.nom_equipe }}</td>
-          <td>{{ team.points }}</td>
-          <td>{{ team.goals_for }}</td>
-          <td>{{ team.goals_against }}</td>
-        </tr>
+      {% for team in poule.get_standings %} <!-- On boucle sur les équipes pour afficher leur classement -->
+      <tr>
+        <td>{{ team.team.nom_equipe }}</td> <!-- On affiche le nom de l'équipe -->
+        <td>{{ team.points }}</td> <!-- On affiche le nombre de points de l'équipe -->
+        <td>{{ team.goals_for }}</td> <!-- On affiche le nombre de buts marqués par l'équipe -->
+        <td>{{ team.goals_against }}</td> <!-- On affiche le nombre de buts encaissés par l'équipe -->
+      </tr>
       {% endfor %}
-      
+
     </tbody>
   </table>
 
-  <h3>Matchs</h3>
-    <table>
-    <thead>
-        <tr>
-        <th>Equipe 1</th>
-        <th>Score</th>
-        <th>Equipe 2</th>
-        <th>Lieu</th>
-        <th>Date et heure</th>
-        </tr>
+  <h3>Matchs</h3> <!-- Titre pour cette section -->
+  <table> <!-- Tableau pour afficher les matchs -->
+    <thead> <!-- En-tête du tableau -->
+      <tr>
+        <th>Equipe 1</th> <!-- Nom de la première équipe -->
+        <th>Score</th> <!-- Score du match -->
+        <th>Equipe 2</th> <!-- Nom de la deuxième équipe -->
+        <th>Lieu</th> <!-- Lieu où le match a été joué -->
+        <th>Date et heure</th> <!-- Date et heure à laquelle le match a été joué -->
+      </tr>
     </thead>
-    <tbody>
-        {% for match in poule.get_matches %}
-        <tr>
-            <td><a href="{% url 'match' match_id=match.id %}">{{ match.equipe1.nom_equipe }}</td></a>
-            <td><a href="{% url 'match' match_id=match.id %}">{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td></a>
-            <td><a href="{% url 'match' match_id=match.id %}">{{ match.equipe2.nom_equipe }}</td></a>
-            <td><a href="{% url 'match' match_id=match.id %}">{{ match.lieu }}</td></a>
-            <td><a href="{% url 'match' match_id=match.id %}">{{ match.date_heure }}</td></a>
-        </tr>
-        {% endfor %}
+    <tbody> <!-- Corps du tableau -->
+      {% for match in poule.get_matches %} <!-- Boucle pour afficher tous les matchs -->
+      <tr>
+        <td><a href="{% url 'match' match_id=match.id %}">{{ match.equipe1.nom_equipe }}</td></a>
+        <!-- Lien vers la page du match -->
+        <td><a href="{% url 'match' match_id=match.id %}">{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td></a>
+        <!-- Lien vers la page du match -->
+        <td><a href="{% url 'match' match_id=match.id %}">{{ match.equipe2.nom_equipe }}</td></a>
+        <!-- Lien vers la page du match -->
+        <td><a href="{% url 'match' match_id=match.id %}">{{ match.lieu }}</td></a> <!-- Lien vers la page du match -->
+        <td><a href="{% url 'match' match_id=match.id %}">{{ match.date_heure }}</td></a>
+        <!-- Lien vers la page du match -->
+      </tr>
+      {% endfor %}
     </tbody>
-    </table>
-{% endblock %}
+  </table>
+  {% endblock %}
 </body>

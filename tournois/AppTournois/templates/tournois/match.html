@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+
+<body>
   {% block content %}
 
   <!-- Afficher les matches  -->
@@ -16,109 +18,80 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{ match.equipe1.nom_equipe }}</td>
-        <td>{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td>
-        <td>{{ match.equipe2.nom_equipe }}</td>
-        <td>{{ match.lieu }}</td>
-        <td>{{ match.date_heure }}</td>
+        <td>{{ match.equipe1.nom_equipe }}</td><!-- Afficher le nom de l'équipe 1 -->
+        <td>{{ match.score_equipe1 }} - {{ match.score_equipe2 }}</td><!-- Afficher le score du match -->
+        <td>{{ match.equipe2.nom_equipe }}</td><!-- Afficher le nom de l'équipe 2 -->
+        <td>{{ match.lieu }}</td><!-- Afficher le lieu du match -->
+        <td>{{ match.date_heure }}</td><!-- Afficher la date et l'heure du match -->
       </tr>
     </tbody>
   </table>
 
-  <form id="CommentaireForm" method="POST" action="{% url 'commenter' match_id=match.id %}">    {% csrf_token %}
+  <!-- Formulaire pour ajouter un commentaire -->
+
+  <form id="CommentaireForm" method="POST" action="{% url 'commenter' match_id=match.id %}">
+    {% csrf_token %}
     <input type="hidden" name="match_id" value="{{ form.initial.match_id }}">
-    <textarea name="contenu" placeholder="Saisissez votre commentaire"></textarea>
+    <textarea name="contenu"
+      placeholder="Saisissez votre commentaire"></textarea><!-- Champ pour saisir un commentaire -->
     <button type="submit">Commenter</button>
-</form>
+  </form>
 
-
+  <!-- Tableau pour afficher les commentaires existants -->
   <table>
     <thead>
       <tr>
         <th>Auteur</th>
         <th>Date</th>
         <th>Contenu</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
       {% for commentaire in match.commentaire.all %}
-  <tr>
-    <td>{{ commentaire.auteur.username }}</td>
-    <td>{{ commentaire.date_heure }}</td>
-    <td>{{ commentaire.contenu }}</td>
-    <td>
-      {% if commentaire.auteur == request.user %}
-        
+      <tr>
+        <td>{{ commentaire.auteur.username }}</td><!-- Afficher le nom de l'auteur du commentaire -->
+        <td>{{ commentaire.date_heure }}</td><!-- Afficher la date et l'heure du commentaire -->
+        <td>{{ commentaire.contenu }}</td><!-- Afficher le contenu du commentaire -->
 
-          <form method="POST" action="{% url 'modifier_commentaire' commentaire.id %}">
+        {% if commentaire.auteur == request.user %}
+        <!-- Si l'auteur du commentaire est l'utilisateur connecté, afficher un formulaire pour modifier le commentaire -->
+        <td class="editable-row">
+
+          <form method="POST" action="{% url 'modifier_commentaire' commentaire.id %}" class="small-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Modifier</button>
+            <button type="submit">Modifier</button><!-- Bouton pour modifier un commentaire -->
           </form>
-          
-          <p>Contenu actuel : {{ commentaire.contenu }}</p>
-          
-        </form>
-      {% else %}
-        <!-- {{ commentaire.contenu }} -->
-      {% endif %}
-    </td>
-  </tr>
-{% empty %}
-  <tr>
-    <td colspan="3">Pas de commentaires pour ce match.</td>
-  </tr>
-{% endfor %}
+
+        </td>
+        {% else %}
+        <!-- Sinon, afficher un message indiquant que l'utilisateur ne peut modifier que ses propres commentaires -->
+        <td>
+          Vous ne pouvez modifier quer vos propres commentaires.
+          <!-- Message affiché si l'auteur du commentaire est différent de l'utilisateur courant -->
+        </td>
+        {% endif %}
+
+
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2">
+          {% if commentaire.auteur == request.user %}
+
+          {% endif %}
+        </td>
+        <td></td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">Pas de commentaires pour ce match.</td>
+        <!-- Message affiché s'il n'y a pas de commentaires pour ce match -->
+      </tr>
+      {% endfor %}
     </tbody>
   </table>
-  
- <!-- Afficher commentaires
-<div id="comment-list">
-  {% if commentaires %}
-  <p>Valid</p>
-    {% for commentaire in commentaires %}
-      <div class="comment">
-        <p class="author">{{ commentaire.auteur.username }}</p>
-        <p class="date">{{ commentaire.date_heure }}</p>
-        <p class="content">{{ commentaire.contenu }}</p>
-      </div>
-    {% endfor %}
-  {% else %}
-    <p>Aucun commentaire pour le moment.</p>
-  {% endif %}
-</div> -->
 
-
-  <!-- <script>
-    // Obtenir le formulaire et le bouton "Soumettre"
-  var commentForm = document.getElementById('CommentaireForm');
-  var submitButton = commentForm.querySelector('[type="submit"]');
-  
-  // Ajouter un gestionnaire d'événements sur le bouton "Soumettre"
-  submitButton.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    // Obtenir les données du formulaire
-    var formData = new FormData(commentForm);
-    
-    // Envoyer une requête AJAX pour ajouter le commentaire
-    fetch(commentForm.action, {
-      method: 'POST',
-      body: formData
-    })
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      // Actualiser la section de commentaires avec le nouveau commentaire
-      var commentSection = document.getElementById('comment-list');
-      commentSection.innerHTML += data.html;
-      
-      // Effacer le contenu du formulaire
-      commentForm.reset();
-    });
-  });
-  </script> -->
   {% endblock %}
-
 </body>

@@ -1,21 +1,28 @@
-/* table */
+/* Style pour la table de score */
 table {
   border-collapse: collapse;
   width: 100%;
+  margin: 0px;
+  padding: 1px;
 }
 
-td, th {
+/* Style pour les cellules de la table */
+td,
+th {
+  border: none;
   background-color: white;
-  padding:8px;
+  padding: 0.5em;
+  margin: 500px;
 }
 
-
+/* Style pour les en-têtes de colonne */
 th {
   text-align: left;
   background-color: #004e89;
   color: white;
 }
 
+/* Style pour les lignes paires de la table */
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
@@ -30,15 +37,14 @@ body {
   font-family: sans-serif;
 }
 
-/* header */
+/* Style pour l'en-tête */
 header {
-  /*background-color: #004e89;*/
   color: white;
   padding: 20px;
   text-align: center;
 }
 
-/* Style pour l'en-tête */
+/* Style pour le titre */
 h1 {
   color: white;
   font-size: 2rem;
@@ -52,38 +58,41 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
+/* Style pour les sous-titres */
 h3 {
-  color : white;
+  color: white;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-
 }
 
-h6{
-  color : black;
+/* Style pour les titres de niveau 6 */
+h6 {
+  color: black;
   background-color: white;
   font-size: 1.5rem;
   margin-bottom: auto;
 }
 
-/* links */
+/* Style pour les liens */
 a {
   color: blue;
   background-color: white;
   text-decoration: none;
 }
 
+/* Style pour les liens survolés */
 a:hover {
   text-decoration: underline;
 }
 
 /* Style pour les informations du match */
 p {
-  color:white;
+  color: white;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
+/* Style pour le formulaire */
 form {
   display: flex;
   flex-direction: column;
@@ -91,14 +100,16 @@ form {
   margin-top: 100px;
 }
 
+/* Style pour les libellés des champs d'entrée */
 label[for='id_username'] {
-  color : white;
+  color: white;
   margin-top: 20px;
   font-size: 18px;
   font-weight: bold;
   color: white;
 }
 
+/* Style pour les champs d'entrée d'identifiant */
 input#id_username {
   padding: 10px;
   margin: 10px;
@@ -107,6 +118,7 @@ input#id_username {
   font-size: 16px;
 }
 
+/* Style pour les libellés des champs de mot de passe */
 label[for='id_password'] {
   margin-top: 20px;
   font-size: 18px;
@@ -114,6 +126,7 @@ label[for='id_password'] {
   color: white;
 }
 
+/* Style pour les champs d'entrée de mot de passe */
 input#id_password {
   padding: 10px;
   margin: 10px;
@@ -140,36 +153,43 @@ input[type="submit"]:hover {
 nav {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /*aligne à droite*/
+  align-items: flex-end;
+  /*aligne à droite*/
   justify-content: space-between;
   align-items: center;
   background-color: #f1f1f1;
   padding: 10px;
+  margin-top: 5px;
 }
 
 nav ul {
   display: flex;
   flex-direction: column;
   list-style-type: none;
-  margin: 0;
+  margin-top: 5px;
   padding: 5px;
 }
 
 nav ul li {
   margin-right: 20px;
-  padding : 5px;
-  padding-top: 15px; /* Ajout de padding en haut */
-  padding-bottom: 45px; /* Ajout de padding en bas */
+  margin-top: 5px;
+  padding: 5px;
+  padding-top: 15px;
+  /* Ajout de padding en haut */
+  padding-bottom: 45px;
+  /* Ajout de padding en bas */
 }
 
 
 nav ul li:last-child {
-  padding-top:35px;
+  padding-top: 35px;
   margin-right: 0;
+  margin-top: 5px;
 }
 
 nav a {
   display: block;
+  margin-top: 5px;
   color: #333;
   text-decoration: none;
   font-weight: bold;
@@ -179,20 +199,99 @@ nav a {
 
 nav a:hover {
   color: #666;
+  margin-top: 5px;
   background-color: #333;
 }
 
 nav li {
   display: inline-block;
-    width: 100%;
+  width: 100%;
   height: 50px;
   line-height: 50px;
   text-align: center;
   border-bottom: 1px solid #ccc;
   margin: 5px;
-  padding:15px;
+  margin-top: 5px;
 }
 
 nav li:last-child {
   border-bottom: none;
+  margin-top: 5px;
+
+}
+
+form#CommentaireForm textarea {
+  margin-top: 25px;
+  width: 2500px;
+  display: inline-block;
+  resize: vertical;
+  vertical-align: middle;
+  height: 50px;
+  max-width: 100%;
+}
+
+#CommentaireForm {
+  max-width: 500px;
+  /* définit une largeur maximale pour le formulaire */
+  margin: 0 auto;
+  /* centre le formulaire horizontalement dans son parent */
+  display: flex;
+  /* utilise un layout flexbox */
+  flex-direction: column;
+  /* place les champs du formulaire en colonne */
+}
+
+#CommentaireForm button {
+  margin-top: 10px;
+  /* ajoute une marge en haut du bouton */
+  padding: 8px;
+  align-self: auto;
+}
+
+form textarea {
+  font-size: 14px;
+  height: 50px;
+  max-height: 100px;
+  resize: vertical;
+}
+
+.small-form {
+  height: 25px;
+  width: 500px;
+  display: inline-block;
+  max-width: 20%;
+  padding: 0px;
+}
+
+.small-form textarea {
+  height: 50px;
+  width: 500px;
+  max-width: 500px;
+  display: inline-block;
+  text-align: left;
+  vertical-align: baseline;
+  padding: 0px;
+}
+
+.small-form button {
+  vertical-align: bottom;
+  margin-top: 5px;
+}
+
+
+.commentaire-row {
+  border-bottom: 0 solid #ccc;
+  padding: 0;
+}
+
+.editable-row {
+  margin-bottom: 0px;
+}
+
+.editable-row p {
+  margin-bottom: 0;
+}
+
+.editable-row form {
+  margin-top: 0px;
 }

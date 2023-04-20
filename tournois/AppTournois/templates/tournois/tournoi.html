@@ -1,42 +1,30 @@
 {% extends 'base.html' %}
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
-    <meta charset="UTF-8">
-    <title>Tournoi de foot</title>
-    
-</head>
 
 <body>
+  {% block content %} <!-- Bloc de contenu spécifique à cette page -->
+  <h1>Poules du tournoi "{{ tournoi.nom_tournoi }}"</h1> <!-- Titre de la section -->
 
-    {% block content %}
-    <h1>Poules du tournoi "{{ tournoi.nom_tournoi }}"</h1>
-  
-    {% if poules %}
-      <table>
-        <thead>
-          <tr>
-            <th>Numéro de poule</th>
-            <th>Nombre d'équipes</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for poule in poules %}
-            <tr>
-              <td><a href="{% url 'detail_poule' poule.id %}">{{ poule.numero_poule }}</td>
-              <td>{{ poule.get_team_count}}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p>Aucune poule pour ce tournoi</p>
-    {% endif %}
-  {% endblock %}
+  {% if poules %} <!-- Si il y a des poules -->
+  <table> <!-- Début du tableau -->
+    <thead> <!-- En-tête du tableau -->
+      <tr> <!-- Ligne du tableau -->
+        <th>Numéro de poule</th> <!-- Titre de la colonne -->
+        <th>Nombre d'équipes</th> <!-- Titre de la colonne -->
+        <th></th> <!-- Colonne vide -->
+      </tr>
+    </thead>
+    <tbody> <!-- Corps du tableau -->
+      {% for poule in poules %} <!-- Pour chaque poule -->
+      <tr> <!-- Ligne du tableau -->
+        <td><a href="{% url 'detail_poule' poule.id %}">{{ poule.numero_poule }}</td>
+        <!-- Numéro de la poule avec un lien vers sa page de détails -->
+        <td>{{ poule.get_team_count}}</td> <!-- Nombre d'équipes dans la poule -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table> <!-- Fin du tableau -->
+  {% else %}
+  <p>Aucune poule pour ce tournoi</p> <!-- Message s'il n'y a pas de poules pour ce tournoi -->
+  {% endif %}
+  {% endblock %} <!-- Fin du bloc de contenu spécifique à cette page -->
 </body>
-</html>

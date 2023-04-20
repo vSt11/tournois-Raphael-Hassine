@@ -1,40 +1,28 @@
 {% extends 'base.html' %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    
-    <meta charset="UTF-8">
-    <title>Tournois de foot</title>
-    
-</head>
+
 <body>
-    
     {% block content %}
-        <h1>Liste des tournois</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom du tournoi</th>
-                    <th>Lieu</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for tournoi in tournois %}
-                     <tr>
-                        <td><a href="{% url 'tournoi' tournoi.id %}">{{ tournoi.nom_tournoi }}</a></td>
-                        <td>{{ tournoi.lieu }}</td>
-                        <td>{{ tournoi.dates }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <h1>Liste des tournois</h1> <!--Titre de la page-->
+    <table> <!--Tableau qui affiche les informations des différents tournois-->
+        <thead> <!--Entête du tableau-->
+            <tr> <!--Ligne d'entête-->
+                <th>Nom du tournoi</th> <!--Colonne pour le nom du tournoi-->
+                <th>Lieu</th> <!--Colonne pour le lieu du tournoi-->
+                <th>Date</th> <!--Colonne pour la date du tournoi-->
+            </tr>
+        </thead>
+        <tbody> <!--Corps du tableau-->
+            {% for tournoi in tournois %} <!--Boucle pour itérer sur tous les tournois-->
+            <tr> <!--Ligne pour chaque tournoi-->
+                <td><a href="{% url 'tournoi' tournoi.id %}">{{ tournoi.nom_tournoi }}</a></td>
+                <!--Colonne pour le nom du tournoi, qui est un lien vers la page du tournoi-->
+                <td>{{ tournoi.lieu }}</td> <!--Colonne pour le lieu du tournoi-->
+                <td>{{ tournoi.dates }}</td> <!--Colonne pour la date du tournoi-->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% endblock %}
 </body>
+
 </html>
-
-
-
-
