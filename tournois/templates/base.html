@@ -46,30 +46,48 @@
               {% endfor %}
             </ul>
           </nav> -->
-        <nav> <!-- Balise de navigation -->
-            <ul> <!-- Balise de liste non ordonnée -->
-                <li> <!-- Premier élément de liste -->
-                    <a href="{% url 'tournois' %}">Tournois</a> <!-- Lien vers la page des tournois -->
-                    <ul id="tournois-dropdown" style="display:none;"> <!-- Sous-menu déroulant des tournois -->
-                        {% for tournoi in tournois_list %}
-                        <li><a href="{% url 'tournoi' tournoi.id %}">{{ tournoi.nom }}</a></li>
-                        <!-- Lien vers la page du tournoi en cours -->
-                        {% endfor %}
-                    </ul>
-                </li>
 
-                {% if user.is_authenticated %} <!-- Si l'utilisateur est connecté -->
-                <li><a href="{% url 'logout' %}">Déconnexion</a></li> <!-- Lien de déconnexion -->
-                {% else %} <!-- Sinon -->
-                <li><a href="{% url 'login' %}">Connexion</a></li> <!-- Lien de connexion -->
-                {% endif %}
+          <nav>
+            <ul>
+              <li class="menu-deroulant">
+                <a href="{% url 'tournois' %}">Tournois</a>
+                <ul class="sous-menu">
+                  <li><a href="{% url 'tournoi' tournoi_id=1 %}">UFC</a></li>
 
-        </nav>
+                  <!-- <ul class="sous-sous-menu">
+                    <li><a href="{% url 'detail_poule' poule_id=1 %}"> Poule 1</a> </li>
+                    <li><a href="{% url 'detail_poule' poule_id=2 %}"> Poule 2</a> </li>
+
+                  </ul> -->
+                  <li><a href="{% url 'tournoi' tournoi_id=2 %}">Champ League</a></li>
+                  <!-- <ul class="sous-sous-menu">
+                    <li><a href="{% url 'detail_poule' poule_id=3 %}"> Poule 1</a> </li>
+                    <li><a href="{% url 'detail_poule' poule_id=4 %}"> Poule 2</a> </li> -->
+
+                  <li><a href="{% url 'tournoi' tournoi_id=3 %}">CdF</a></li>
+                  <!-- <ul class="sous-sous-menu">
+                    <li><a href="{% url 'detail_poule' poule_id=5 %}"> Poule 1</a> </li>
+                    <li><a href="{% url 'detail_poule' poule_id=6 %}"> Poule 2</a> </li> -->
+
+                  <li><a href="{% url 'tournoi' tournoi_id=4 %}">Last but not Least </a></li>
+                  <!-- <ul class="sous-sous-menu">
+                    <li><a href="{% url 'detail_poule' poule_id=7 %}"> Poule 1</a> </li>
+                    <li><a href="{% url 'detail_poule' poule_id=8 %}"> Poule 2</a> </li>
+                </ul> -->
+              </li>
+            {% if user.is_authenticated %} <!-- Si l'utilisateur est connecté -->
+            <ul>
+                <li class="login"><a href="{% url 'logout' %}">Déconnexion</a></li></ul> <!-- Lien de déconnexion -->
+            {% else %} <!-- Sinon -->
+                <ul>
+                <li class="login"><a href="{% url 'login' %}">Connexion</a></li> <!-- Lien de connexion -->
+            </ul>
+            {% endif %}
+              
+          </nav>
 
 
-
-
-
+        
         <!-- <nav>
             <ul>
                 <li><a href="{% url 'tournois' %}" padding="5px">Accueil</a></li>

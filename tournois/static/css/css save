@@ -1,0 +1,89 @@
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /*aligne à droite*/
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+nav ul li {
+  margin-right: 20px;
+  margin-top: 5px;
+  padding: 5px;
+  padding-top: 15px;
+  /* Ajout de padding en haut */
+  padding-bottom: 45px;
+  /* Ajout de padding en bas */
+}
+
+
+nav ul li:last-child {
+  padding-top: 35px;
+  margin-right: 0;
+  margin-top: 5px;
+}
+
+nav a {
+  display: block;
+  margin-top: 5px;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  color: #666;
+  margin-top: 5px;
+  background-color: #333;
+}
+
+nav li {
+  display: inline-block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  margin: 5px;
+  margin-top: 5px;
+}
+
+nav li:last-child {
+  border-bottom: none;
+  margin-top: 5px;
+
+}
+
+<nav> <!-- Balise de navigation -->
+            <ul> <!-- Balise de liste non ordonnée -->
+                <li> <!-- Premier élément de liste -->
+                    <a href="{% url 'tournois' %}">Tournois</a> <!-- Lien vers la page des tournois -->
+                    <ul id="tournois-dropdown" style="display:none;"> <!-- Sous-menu déroulant des tournois -->
+                        {% for tournoi in tournois_list %}
+                        <li><a href="{% url 'tournoi' tournoi.id %}">{{ tournoi.nom }}</a></li>
+                        <!-- Lien vers la page du tournoi en cours -->
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                {% if user.is_authenticated %} <!-- Si l'utilisateur est connecté -->
+                <li><a href="{% url 'logout' %}">Déconnexion</a></li> <!-- Lien de déconnexion -->
+                {% else %} <!-- Sinon -->
+                <li><a href="{% url 'login' %}">Connexion</a></li> <!-- Lien de connexion -->
+                {% endif %}
+
+        </nav>
